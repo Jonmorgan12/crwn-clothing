@@ -24,6 +24,7 @@ class App extends React.Component {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
+        //whenever our user snapshot updates, we are setting the user reducer value with our new object
         userRef.onSnapshot((snapShot) => {
           setCurrentUser({
             id: snapShot.id,
@@ -49,6 +50,7 @@ class App extends React.Component {
           <Route
             exact
             path="/signin"
+            //if there is a current user redirect to home page
             render={() =>
               this.props.currentUser ? (
                 <Redirect to="/" />
@@ -63,10 +65,13 @@ class App extends React.Component {
   }
 }
 
+// 1st argument, returning our current user to state
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
 });
 
+// 2nd argument, returning an object that is a prop that will
+//dispacth whatever you are passing is gonna be a action object that will be passed to every reducer
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
