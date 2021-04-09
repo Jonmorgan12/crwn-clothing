@@ -11,7 +11,6 @@ import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
 import "./header.styles.scss";
-import Carticon from "../cart-icon/cart-icon.component";
 
 const Header = ({ currentUser, hidden }) => (
   <div className="header">
@@ -34,7 +33,7 @@ const Header = ({ currentUser, hidden }) => (
           SIGN IN
         </Link>
       )}
-      <Carticon />
+      <CartIcon />
     </div>
     {hidden ? null : <CartDropdown />}
   </div>
