@@ -7,10 +7,10 @@ import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
 
 import "./cart-icon.styles.scss";
 
-const Carticon = ({ toggleCartHidden }) => (
+const Carticon = ({ toggleCartHidden, itemCount }) => (
   <div className="cart-icon" onClick={toggleCartHidden}>
     <ShoppingIcon className="shopping-icon" />
-    <span className="item-count">0</span>
+    <span className="item-count">{itemCount}</span>
   </div>
 );
 
@@ -18,4 +18,16 @@ const mapDispatchToProps = (dispatch) => ({
   toggleCartHidden: () => dispatch(toggleCartHidden()),
 });
 
-export default connect(null, mapDispatchToProps)(Carticon);
+//function that is always being called which is passing in new props to our components, always rerendering our components and returning a new value
+const mapStateToProps = ({ cart: { cartItems } }) => {
+  console.log("being called");
+  return {
+    itemCount: cartItems.reduce(
+      (accumalatedQuantity, cartItem) =>
+        accumalatedQuantity + cartItem.quantity,
+      0
+    ),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Carticon);
