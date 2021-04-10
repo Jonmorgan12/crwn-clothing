@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import { toggleCartHidden } from "../../redux/cart/cart.actions";
 
+import { selectCartItemsCount } from "../../redux/cart/cart.selectors";
+
 import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
 
 import "./cart-icon.styles.scss";
@@ -19,15 +21,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 //function that is always being called which is passing in new props to our components, always rerendering our components and returning a new value
-const mapStateToProps = ({ cart: { cartItems } }) => {
-  console.log("being called");
-  return {
-    itemCount: cartItems.reduce(
-      (accumalatedQuantity, cartItem) =>
-        accumalatedQuantity + cartItem.quantity,
-      0
-    ),
-  };
-};
+const mapStateToProps = (state) => ({
+  itemCount: selectCartItemsCount(state),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Carticon);
