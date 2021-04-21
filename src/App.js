@@ -12,15 +12,7 @@ import CheckoutPage from "./pages/checkout/checkout.component";
 
 import Header from "./components/header/header.component";
 
-import {
-  auth,
-  createUserProfileDocument,
-<<<<<<< HEAD
-  addCollectionAndDocuments,
-} from "./firebase/firebase.utils";
-=======
-} from "./components/firebase/firebase.utils";
->>>>>>> parent of b09e5f8... converted all components into styled components, restructured my folders, bug fixes
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selector";
@@ -45,10 +37,6 @@ class App extends React.Component {
         });
       }
       setCurrentUser(userAuth);
-      addCollectionAndDocuments(
-        "collections",
-        collectionsArray.map(({ title, items }) => ({ title, items }))
-      );
     });
   }
 
