@@ -7,7 +7,7 @@ import "./App.css";
 
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
-import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
+import SignInAndSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
 
 import Header from "./components/header/header.component";
@@ -15,8 +15,12 @@ import Header from "./components/header/header.component";
 import {
   auth,
   createUserProfileDocument,
+<<<<<<< HEAD
   addCollectionAndDocuments,
 } from "./firebase/firebase.utils";
+=======
+} from "./components/firebase/firebase.utils";
+>>>>>>> parent of b09e5f8... converted all components into styled components, restructured my folders, bug fixes
 
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selector";
@@ -32,6 +36,7 @@ class App extends React.Component {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
+        //whenever our user snapshot updates, we are setting the user reducer value with our new object
         userRef.onSnapshot((snapShot) => {
           setCurrentUser({
             id: snapShot.id,
@@ -39,7 +44,6 @@ class App extends React.Component {
           });
         });
       }
-
       setCurrentUser(userAuth);
       addCollectionAndDocuments(
         "collections",
@@ -63,6 +67,7 @@ class App extends React.Component {
           <Route
             exact
             path="/signin"
+            //if there is a current user redirect to home page
             render={() =>
               this.props.currentUser ? (
                 <Redirect to="/" />
@@ -77,11 +82,15 @@ class App extends React.Component {
   }
 }
 
+// all selectors are memoized(stored in function so we dont have to rerender code)
+// 1st argument, returning our current user to state
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   collectionsArray: selectCollectionsForPreview,
 });
 
+// 2nd argument, returning an object that is a prop that will
+//dispacth whatever you are passing is gonna be a action object that will be passed to every reducer
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
