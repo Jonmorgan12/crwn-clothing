@@ -29,7 +29,6 @@ const CollectionItem = ({ item, addItem }) => {
   );
 };
 
-//whenever we call this function this function will receive the item as the property, pass it into our addItem action which will give us back a object where the type is equal to addItem. The payload is equal to the item that has been passed in. We will dispatch that item into our store and go through our redux flow.
 const mapDispatchToProps = (dispatch) => ({
   addItem: (item) => dispatch(addItem(item)),
 });
